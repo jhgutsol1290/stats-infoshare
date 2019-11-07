@@ -17,7 +17,7 @@ class Stats_Infoshare():
             for file in self.dirs:
                 data = '\\' + file
                 new_date = parse(time.ctime(os.path.getctime(root_user + data)))
-                name, ext = os.path.splitext(file)
+                _, ext = os.path.splitext(file)
                 if new_date.year == year_user:
                     if new_date.month == month_user:
                         self.list_files.append([file, new_date, ext])
@@ -31,9 +31,16 @@ class Stats_Infoshare():
         try:
             count_mp4 = len([element[2] for element in self.list_files if element[2] == '.mp4'])
             count_pdf = len([element[2] for element in self.list_files if element[2] == '.pdf'])
-            count_png = len([element[2] for element in self.list_files if element[2] == '.png'])
-            count_jpg = len([element[2] for element in self.list_files if element[2] == '.jpg'])
-            count_gif = len([element[2] for element in self.list_files if element[2] == '.gif'])       
+            count_png = len([element[2] for element in self.list_files if element[2] == '.png' or element[2] == '.PNG'])
+            count_jpg = len([element[2] for element in self.list_files if element[2] == '.jpg' or element[2] == '.JPG'])
+            count_gif = len([element[2] for element in self.list_files if element[2] == '.gif']) 
+            """ total_jpg = []
+            for element in self.list_files:
+                if element[2] == '.jpg':
+                    total_jpg.append(element[2])
+                if element[2] == '.JPG':
+                    total_jpg.append(element[2])
+            count_jpg = len(total_jpg) """
             return [count_mp4, count_pdf, count_png, count_jpg, count_gif]
         except Exception as e:
             print('¡¡¡¡Algo malo ocurrió en el conteo!!!!, ->', str(e))
